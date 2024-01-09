@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "934706642444",
+    "project_id": "uhelp-68904",
+    "storage_bucket": "uhelp-68904.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934706642444:android:fec7b97674947366d37829",
+        "android_client_info": {
+          "package_name": "net.lecnam.uhelp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNlibnaZJ4Qpxju83uJhExs5rRd7ahA70"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
