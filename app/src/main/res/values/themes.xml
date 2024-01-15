@@ -9,9 +9,15 @@
         <item name="boxStrokeColor">@color/uhelp</item>
         <item name="hintTextColor">@color/grey</item>
         <item name="cursorColor">@color/grey</item>
+        <item name="fontFamily">@font/montserrat_bold</item>
         <item name="android:textColorHint">@color/grey</item>
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">15dp</item>
+    </style>
+
+    <style name="TextViewUHelp">
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="color">@color/white</item>
     </style>
 
     <style name="Theme.UHelp" parent="Base.Theme.UHelp" />

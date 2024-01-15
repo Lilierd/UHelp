@@ -14,13 +14,15 @@
         android:orientation="vertical"
         android:scrollbars="vertical"
         >
+
+        <!--Bienvenue et recherche-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="30dp">
             <Button
-                android:id="@+id/retour"
+                android:id="@+id/retourAccueil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
@@ -65,7 +67,7 @@
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-
+        <!--Demandes du jour-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,26 +89,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:columnCount="2">
-                <ImageView
-                    android:src="@drawable/carre"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="15dp"/>
-                <ImageView
-                    android:src="@drawable/carre"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="15dp"/>
-                <ImageView
-                    android:src="@drawable/carre"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="15dp"/>
-                <ImageView
-                    android:src="@drawable/carre"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="15dp"/>
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:paddingVertical="15dp"
+                    android:columnCount="1"
+                    >
+                    <LinearLayout
+                        android:background="@drawable/carre"/>
+                    <LinearLayout
+                        android:background="@drawable/carre"/>
+                </GridLayout>
+
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="15dp"
+                    android:columnCount="1">
+                    <LinearLayout
+                        android:background="@drawable/carre"/>
+                    <LinearLayout
+                        android:background="@drawable/carre"/>
+                </GridLayout>
             </GridLayout>
 
         </LinearLayout>
 
+        <!--Mes demandes-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -116,23 +126,28 @@
             android:paddingRight="25dp">
 
             <TextView
+                style="@style/TextViewUHelp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_bold"
                 android:text="Mes demandes"
                 android:textSize="20sp"
                 android:paddingBottom="10dp"
                 android:textColor="@color/white"/>
-
-            <GridLayout
-                android:id="@+id/mesdemandes"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="1"
-                android:scrollbars="vertical"
-                android:background="@color/uhelp">
+                android:background="@drawable/carre"
+                >
+                <!--Liste des demandes-->
+                <LinearLayout
+                    android:id="@+id/mesdemandes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            </GridLayout>
+                </LinearLayout>
+            </ScrollView>
+
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
