@@ -1,6 +1,8 @@
 package net.lecnam.uhelp;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
@@ -25,13 +27,25 @@ public class MainActivity extends AppCompatActivity {
         confirm = (Button)findViewById(R.id.confirm);
         pseudo = (TextInputEditText) findViewById(R.id.pseudo);
 
-        confirm.setOnClickListener(v -> openAccueil());
+        confirm.setOnClickListener(v -> openAccueil(pseudo.getText().toString()));
 
     }
 
-    public void openAccueil(){
-        Intent intent = new Intent(this, AccueilActivity.class);
-        startActivity(intent);
-        finish();
+    public void openAccueil(String pseudo){
+        if(!pseudo.isEmpty())
+        {
+            confirm.setBackgroundColor((255) << 24 | (10) << 16 | (175) << 8 | (10));
+            Intent intent = new Intent(this, AccueilActivity.class);
+            Bundle b = new Bundle();
+            b.putString("pseudo", pseudo);
+            intent.putExtras(b);
+            startActivity(intent);
+            finish();
+        }
+        else
+        {
+            confirm.setBackgroundColor((255) << 24 | (255) << 16 | (10) << 8 | (60));
+            return;
+        }
     }
 }

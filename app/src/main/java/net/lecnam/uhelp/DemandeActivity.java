@@ -16,6 +16,7 @@ public class DemandeActivity extends Activity {
     private ImageView retour;
     private TextView demandeTexte;
     private Bundle b;
+    private ImageView home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class DemandeActivity extends Activity {
         //Récupération des éléments graphiques du layout actuel
         retour = (ImageView) findViewById(R.id.retourDemande);
         demandeTexte = (TextView) findViewById(R.id.demande);
+        home = (ImageView) findViewById(R.id.home);
 
         //Actualisation des données en fonction de la demande sélectionnée
         b = getIntent().getExtras();
@@ -33,8 +35,9 @@ public class DemandeActivity extends Activity {
             str = b.getString("demande");
         demandeTexte.setText(str);
 
-        retour.setOnClickListener(v -> OpenAccueil());
 
+        home.setOnClickListener(v -> OpenAccueil());
+        retour.setOnClickListener(v -> OpenAccueil());
     }
 
     private void OpenAccueil() {
