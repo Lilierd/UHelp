@@ -40,8 +40,7 @@ public class AccueilActivity extends AppCompatActivity {
             t.setText("patate"+i);
             t.setTextColor(Color.WHITE);
             t.setId(i);
-            if(i==0)
-                t.setOnClickListener(v -> openDemandesView(t.getText().toString()));
+            t.setOnClickListener(v -> openDemandesView(t.getText().toString()));
             mesDemandes.addView(t);
         }
 
