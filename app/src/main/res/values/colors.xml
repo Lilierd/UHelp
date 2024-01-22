@@ -5,4 +5,5 @@
     <color name="grey">#FFAAAAAA</color>
     <color name="fond">#FFB53340</color>
     <color name="uhelp">#FF404C84</color>
+    <color name="idle_icons">#55FFFFFF</color>
 </resources>
