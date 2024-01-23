@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import net.lecnam.uhelp.utils.ActivityUtilities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -53,25 +54,13 @@ public class AccueilActivity extends AppCompatActivity {
             t.setText("patate"+i);
             t.setTextColor(Color.WHITE);
             t.setId(i);
-            t.setOnClickListener(v -> openDemandesView(t.getText().toString()));
+            Bundle b = new Bundle();
+            b.putString("demande", t.getText().toString());
+            t.setOnClickListener(v -> ActivityUtilities.openActivity(this, DemandeActivity.class, b));
             mesDemandes.addView(t);
         }
 
-        retour.setOnClickListener(v -> retourLanding());
+        retour.setOnClickListener(v -> ActivityUtilities.openActivity(this, MainActivity.class));
     }
 
-    private void openDemandesView(String demande) {
-        Intent intent = new Intent(this, DemandeActivity.class);
-        Bundle b = new Bundle();
-        b.putString("demande", demande);
-        intent.putExtras(b);
-        startActivity(intent);
-        finish();
-    }
-
-    private void retourLanding(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
 }

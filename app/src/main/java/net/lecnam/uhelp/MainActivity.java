@@ -9,6 +9,7 @@ import android.view.View;
 import net.lecnam.uhelp.databinding.ActivityMainBinding;
 import android.widget.Button;
 import com.google.android.material.textfield.TextInputEditText;
+import net.lecnam.uhelp.utils.ActivityUtilities;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,12 +36,9 @@ public class MainActivity extends AppCompatActivity {
         if(!pseudo.isEmpty())
         {
             confirm.setBackgroundColor((255) << 24 | (10) << 16 | (175) << 8 | (10));
-            Intent intent = new Intent(this, AccueilActivity.class);
             Bundle b = new Bundle();
             b.putString("pseudo", pseudo);
-            intent.putExtras(b);
-            startActivity(intent);
-            finish();
+            ActivityUtilities.openActivity(this, AccueilActivity.class, b);
         }
         else
         {
