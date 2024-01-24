@@ -1,5 +1,7 @@
 package net.lecnam.uhelp;
 
+import static net.lecnam.uhelp.queries.Utilisateurs.addUtilisateurs;
+
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -10,6 +12,7 @@ import net.lecnam.uhelp.databinding.ActivityMainBinding;
 import android.widget.Button;
 import com.google.android.material.textfield.TextInputEditText;
 import net.lecnam.uhelp.utils.ActivityUtilities;
+import net.lecnam.uhelp.queries.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,5 +48,6 @@ public class MainActivity extends AppCompatActivity {
             confirm.setBackgroundColor((255) << 24 | (255) << 16 | (10) << 8 | (60));
             return;
         }
+        addUtilisateurs("4", "Bastien", "MERLETTE");
     }
 }
