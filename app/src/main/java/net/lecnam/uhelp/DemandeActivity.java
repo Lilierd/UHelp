@@ -22,17 +22,14 @@ public class DemandeActivity extends Activity {
 
     private ImageView retour;
     private TextView demandeTexte;
-    private SensorManager sensorManager;
     private Sensor accel;
     private Bundle b;
     private ImageView home;
 
     //Pour détection de la secousse
-    private static final int SHAKE_THRESHOLD = 800;
-    private long lastUpdate;
-    private float last_x;
-    private float last_y;
-    private float last_z;
+    private SensorManager sensorManager;
+    private float accelVal, accelLast, shake;
+    private int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,40 +46,13 @@ public class DemandeActivity extends Activity {
         retour.setOnClickListener(v -> ActivityUtilities.openActivity(this, AccueilActivity.class));
 
         //Gestion des capteurs
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensorManager = (SensorManager) getSystemService(this.SENSOR_SERVICE);
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        SensorEventListener accelerometerEventListener = new SensorEventListener() {
-            @Override
-            public void onSensorChanged(SensorEvent event) {
-                long curTime = System.currentTimeMillis();
-
-                if((curTime-event.timestamp) > 100)
-                {
-                    long diffTime = curTime - lastUpdate;
-                    lastUpdate = curTime;
-
-                    float x = event.values[0];
-                    float y = event.values[1];
-                    float z = event.values[2];
-
-                    float speed = Math.abs(x+y+z - last_x - last_y - last_z) / diffTime * 10000;
-
-                    if(speed > SHAKE_THRESHOLD)
-                        Log.d("sensor", "shake detected");
-
-                    last_x = x;
-                    last_y = y;
-                    last_z = z;
-                }
-
-            }
-
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-                System.out.println(sensor.getPower());
-            }
-        };
-        sensorManager.registerListener(accelerometerEventListener, accel, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(sensorListener, accel, SensorManager.SENSOR_DELAY_NORMAL);
+        accelVal = SensorManager.GRAVITY_EARTH;
+        accelLast = SensorManager.GRAVITY_EARTH;
+        shake=0.0f;
+        counter = 0;
 
         //Actualisation des données en fonction de la demande sélectionnée
         b = getIntent().getExtras();
@@ -92,4 +62,31 @@ public class DemandeActivity extends Activity {
         demandeTexte.setText(str);
 
     }
+
+    private final SensorEventListener sensorListener = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            float x =event.values[0];
+            float y =event.values[1];
+            float z =event.values[2];
+            accelLast=accelVal;
+            accelVal=(float) Math.sqrt((double) (x*x)+(y*y)+(z*z));
+            float delta= accelVal-accelLast;
+            shake =shake*0.9f+delta;
+
+            if(shake>12){
+                counter++;
+            }
+
+            if(counter>=1)
+            {
+                counter = 0;
+                Log.d("sensor", "omg ça secoue");
+                Toast.makeText(getApplicationContext(), "mg ça secoue", Toast.LENGTH_LONG).show();
+            }
+        }
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+    };
 }
