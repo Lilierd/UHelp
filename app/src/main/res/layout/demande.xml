@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fond"
+    android:id="@+id/fond"
     android:fitsSystemWindows="true"
     tools:context=".DemandeActivity">
     <!--Vue spécifique d'une demande unique-->

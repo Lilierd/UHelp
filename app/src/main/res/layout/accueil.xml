@@ -32,7 +32,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="10sp"
-                app:backgroundTint="@color/white" />
+                android:backgroundTint="@color/white" />
             <TextView
                 android:id="@+id/hello"
                 android:layout_width="match_parent"

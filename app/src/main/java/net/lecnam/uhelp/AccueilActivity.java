@@ -43,7 +43,7 @@ public class AccueilActivity extends AppCompatActivity {
         if(b != null)
             pseudo = "Hello "+b.getString("pseudo")+" !";
         else
-            pseudo = "Nique ta mère";
+            pseudo = "Hello pseudo !";
         hello.setText(pseudo);
 
         for(int i = 0; i < 15; i++){

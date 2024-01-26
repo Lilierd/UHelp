@@ -18,11 +18,12 @@
             android:layout_columnWeight="20"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:contentDescription="map"
+            android:contentDescription="home"
             android:gravity="center"
             android:scaleType="centerCrop"
             android:src="@drawable/icon_home"/>
         <ImageView
+            android:id="@+id/carte"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_columnWeight="20"
