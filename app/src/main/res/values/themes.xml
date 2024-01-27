@@ -27,7 +27,7 @@
         <item name="marginHorizontal">20dp</item>
         <item name="fontFamily">@font/montserrat_bold</item>
         <item name="android:padding">15dp</item>
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:backgroundTint">@color/white</item>

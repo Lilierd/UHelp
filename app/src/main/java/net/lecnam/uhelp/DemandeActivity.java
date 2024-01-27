@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.Image;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.lecnam.uhelp.utils.ActivityUtilities;
+import net.lecnam.uhelp.utils.Popup;
+import net.lecnam.uhelp.utils.PopupButtons;
 
 public class DemandeActivity extends Activity {
 
@@ -67,25 +70,15 @@ public class DemandeActivity extends Activity {
         home = (ImageView) findViewById(R.id.home);
         carte = (ImageView) findViewById(R.id.carte);
 
-        ActivityUtilities.createPopup();
-        popUp = new PopupWindow(this);
-        popUp.setContentView(findViewById(R.id.popup_fen));
+        //Popup d'acceptation
+        popUp = Popup.createPopup(this, "Accepter la demande ?", "yolo", PopupButtons.OKCancel);
 
         //Définition du comportement des boutons
         home.setOnClickListener(v -> ActivityUtilities.openActivity(this, AccueilActivity.class));
         retour.setOnClickListener(v -> ActivityUtilities.openActivity(this, AccueilActivity.class));
-        carte.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (click) {
-                    popUp.showAtLocation(fond, Gravity.BOTTOM, 10, 10);
-                    popUp.update(50, 50, 300, 80);
-                    click = false;
-                } else {
-                    popUp.dismiss();
-                    click = true;
-                }
-            }
+        carte.setOnClickListener(v -> {
+            popUp.showAtLocation(fond, Gravity.CENTER, 0, 0);
+            popUp.update(0, 0, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         });
 
         //Gestion des capteurs
