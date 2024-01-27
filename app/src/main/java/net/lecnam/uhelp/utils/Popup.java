@@ -17,9 +17,9 @@ import java.util.ArrayList;
 
 
 public class Popup extends PopupWindow {
-    private int OK = 0;
-    private int Yes = 0;
-    private int No = 0;
+    private boolean OK = false;
+    private boolean Yes = false;
+    private boolean No = false;
 
     //Constructeur de Popup
     public Popup(Context context)
@@ -27,16 +27,16 @@ public class Popup extends PopupWindow {
         super(context);
     }
 
-    public int getOK()
+    public boolean getOK()
     {
         return OK;
     }
 
-    public int getYes()
+    public boolean getYes()
     {
         return Yes;
     }
-    public int getNo()
+    public boolean getNo()
     {
         return No;
     }
@@ -53,6 +53,7 @@ public class Popup extends PopupWindow {
         titleView.setTextSize(30.0f); titleView.setTextColor((255) << 24 | (255) << 16 | (255) << 8 | (255));
         TextView descView = new TextView(context, null, R.style.TextViewUHelp); descView.setText(description);
         descView.setTextColor((255) << 24 | (255) << 16 | (255) << 8 | (255));
+        mainLayout.setOutlineSpotShadowColor((150) << 24 | (0) << 16 | (0) << 8 | (0));
 
         //Boutons de la popup (dépend de l'Enum PopupButtons)
         LinearLayout buttonsLayout = new LinearLayout(context);
@@ -64,7 +65,7 @@ public class Popup extends PopupWindow {
                 OK.setText("OK");
                 OK.setTextColor((255) << 24 | (255) << 16 | (255) << 8 | (255));
                 OK.setOnClickListener(v -> {
-                    popUp.OK = 1;
+                    popUp.OK = true;
                     popUp.dismiss();
                 });
                 boutons.add(OK);
@@ -74,7 +75,7 @@ public class Popup extends PopupWindow {
                 OKc.setText("OK");
                 OKc.setTextColor((255) << 24 | (255) << 16 | (255) << 8 | (255));
                 OKc.setOnClickListener(v -> {
-                    popUp.OK = 1;
+                    popUp.OK = true;
                     popUp.dismiss();
                 });
                 Button Cancel = new Button(new ContextThemeWrapper(context, R.style.PopupBoutons), null, 0);
@@ -91,14 +92,14 @@ public class Popup extends PopupWindow {
                 Yes.setText("Oui");
                 Yes.setTextColor((255) << 24 | (255) << 16 | (255) << 8 | (255));
                 Yes.setOnClickListener(v -> {
-                    popUp.Yes = 1;
+                    popUp.Yes = true;
                     popUp.dismiss();
                 });
                 Button No = new Button(new ContextThemeWrapper(context, R.style.PopupBoutons), null, 0);
                 No.setText("Non");
                 No.setTextColor((255) << 24 | (255) << 16 | (255) << 8 | (255));
                 No.setOnClickListener(v -> {
-                    popUp.No = 1;
+                    popUp.No = true;
                     popUp.dismiss();
                 });
                 boutons.add(Yes);

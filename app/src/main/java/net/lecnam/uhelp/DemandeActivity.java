@@ -35,7 +35,7 @@ public class DemandeActivity extends Activity {
     private Bundle b; //Bundle de chargement de données
 
 
-    private PopupWindow popUp;
+    private Popup popUp;
     boolean click = true;
 
     //Barre de menu
@@ -77,8 +77,7 @@ public class DemandeActivity extends Activity {
         home.setOnClickListener(v -> ActivityUtilities.openActivity(this, AccueilActivity.class));
         retour.setOnClickListener(v -> ActivityUtilities.openActivity(this, AccueilActivity.class));
         carte.setOnClickListener(v -> {
-            popUp.showAtLocation(fond, Gravity.CENTER, 0, 0);
-            popUp.update(0, 0, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            askAccept();
         });
 
         //Gestion des capteurs
@@ -114,21 +113,37 @@ public class DemandeActivity extends Activity {
             float delta= accelVal-accelLast;
             shake =shake*0.9f+delta;
 
-            if(shake>12){
+            if(shake>12)
                 counter++;
-            }
 
             if(counter>=2)  //On détecte la secousse
             {
-                //TODO : Popup de confirmation d'acceptation
-                PopupWindow accept = new PopupWindow();
+                askAccept();
                 counter = 0;
-                Log.d("sensor", "omg ça secoue");
-                Toast.makeText(getApplicationContext(), "Demande acceptée", Toast.LENGTH_LONG).show();
             }
         }
         @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
         }
     };
+
+    private void askAccept()
+    {
+        if(popUp == null)
+            return;
+        popUp.showAtLocation(fond, Gravity.CENTER, 0, 0);
+        popUp.update(0, 0, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        popUp.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                if(popUp.getOK())
+                {
+                    //TODO: Requête BDD pour acceptation de la demande
+                    Log.d("sensor", "omg ça secoue");
+                    Toast.makeText(getApplicationContext(), "Demande acceptée", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
 }
