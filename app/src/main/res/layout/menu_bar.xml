@@ -36,6 +36,7 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:id="@+id/newDemande"
             android:layout_columnWeight="20"
             android:layout_gravity="center"
             android:contentDescription="logo"
@@ -44,20 +45,22 @@
             android:src="@drawable/logo" />
 
         <ImageView
+            android:id="@+id/msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_columnWeight="20"
-            android:contentDescription="map"
+            android:contentDescription="msg"
             android:gravity="center"
             android:scaleType="centerCrop"
             android:src="@drawable/icon_chat" />
         <ImageView
+            android:id="@+id/profil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_columnWeight="20"
             android:layout_gravity="center"
-            android:contentDescription="profile"
+            android:contentDescription="profil"
             android:gravity="center"
             android:scaleType="centerCrop"
             android:src="@drawable/icon_profile" />

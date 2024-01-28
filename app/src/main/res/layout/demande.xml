@@ -21,19 +21,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/retour"
+                android:layout_gravity="start"
+                android:layout_weight="0"
                 android:id="@+id/retourDemande"
                 android:padding="20dp"/>
 
             <TextView
-                android:id="@+id/demande"
-                style="@style/TextViewUHelp"
+                android:id="@+id/nomDemande"
+                style="@style/TextViewUHelpTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:fontFamily="@font/montserrat_bold"
-                android:paddingLeft="30dp"
-                android:paddingTop="10dp"
-                android:text="Demande n°x"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:paddingTop="12dp"
+                android:text="Demande x"
                 android:textColor="@color/white"
                 android:textSize="30sp" />
         </LinearLayout>
@@ -43,9 +47,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="5dp"
+                android:layout_marginHorizontal="10dp"
                 android:orientation="vertical"
                 android:scrollbars="vertical">
+
+                <TextView
+                    android:id="@+id/typeDemande"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    style="@style/TextViewUHelpText"
+                    android:text="Type :"/>
+
+                <TextView
+                    android:id="@+id/descDemande"
+                    style="@style/TextViewUHelpText"
+                    android:text="Description :"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
         </ScrollView>

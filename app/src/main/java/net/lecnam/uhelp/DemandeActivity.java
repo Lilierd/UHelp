@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.lecnam.uhelp.utils.ActivityUtilities;
+import net.lecnam.uhelp.utils.MenuBar;
 import net.lecnam.uhelp.utils.Popup;
 import net.lecnam.uhelp.utils.PopupButtons;
 
@@ -30,17 +31,16 @@ public class DemandeActivity extends Activity {
 
     private RelativeLayout fond;
     private ImageView retour;
-    private TextView demandeTexte;
+    private TextView nomDemande;
     private Sensor accel;
     private Bundle b; //Bundle de chargement de données
 
 
     private Popup popUp;
-    boolean click = true;
+    private boolean click = true;
 
     //Barre de menu
-    private ImageView home;
-    private ImageView carte;
+    private MenuBar menuBar;
 
     //Variables d'état de l'utilisateur qui consulte la demande
     /*
@@ -62,23 +62,17 @@ public class DemandeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.demande);
-
         //Récupération des éléments graphiques du layout actuel
         fond = (RelativeLayout) findViewById(R.id.fond);
         retour = (ImageView) findViewById(R.id.retourDemande);
-        demandeTexte = (TextView) findViewById(R.id.demande);
-        home = (ImageView) findViewById(R.id.home);
-        carte = (ImageView) findViewById(R.id.carte);
+        nomDemande = (TextView) findViewById(R.id.nomDemande);
 
-        //Popup d'acceptation
+        //Init de la barre de menu
+        menuBar = new MenuBar(this);
+        retour.setOnClickListener(v -> { ActivityUtilities.openActivity(this, AccueilActivity.class); });
+
+        //Popup d'acceptation de la demande
         popUp = Popup.createPopup(this, "Accepter la demande ?", "yolo", PopupButtons.OKCancel);
-
-        //Définition du comportement des boutons
-        home.setOnClickListener(v -> ActivityUtilities.openActivity(this, AccueilActivity.class));
-        retour.setOnClickListener(v -> ActivityUtilities.openActivity(this, AccueilActivity.class));
-        carte.setOnClickListener(v -> {
-            askAccept();
-        });
 
         //Gestion des capteurs
         sensorManager = (SensorManager) getSystemService(this.SENSOR_SERVICE);
@@ -90,11 +84,12 @@ public class DemandeActivity extends Activity {
         counter = 0;
 
         //Actualisation des données en fonction de la demande sélectionnée
+        //TODO: Remplacer par la fonction qui va récup les données dans la BDD
         b = getIntent().getExtras();
         String str = "";
         if(b != null)
             str = b.getString("demande");
-        demandeTexte.setText(str);
+        nomDemande.setText(str);
 
     }
 

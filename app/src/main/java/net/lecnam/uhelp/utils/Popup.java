@@ -49,9 +49,9 @@ public class Popup extends PopupWindow {
         LinearLayout mainLayout = new LinearLayout(context);
         mainLayout.setBackgroundColor((255) << 24 | (0x40) << 16 | (0x4C) << 8 | (0x84));
         //Textes de la popup
-        TextView titleView = new TextView(context, null, R.style.TextViewUHelp); titleView.setText(title);
+        TextView titleView = new TextView(context, null, R.style.TextViewUHelpTitle); titleView.setText(title);
         titleView.setTextSize(30.0f); titleView.setTextColor((255) << 24 | (255) << 16 | (255) << 8 | (255));
-        TextView descView = new TextView(context, null, R.style.TextViewUHelp); descView.setText(description);
+        TextView descView = new TextView(context, null, R.style.TextViewUHelpText); descView.setText(description);
         descView.setTextColor((255) << 24 | (255) << 16 | (255) << 8 | (255));
         mainLayout.setOutlineSpotShadowColor((150) << 24 | (0) << 16 | (0) << 8 | (0));
 
