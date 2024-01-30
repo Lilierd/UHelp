@@ -21,24 +21,48 @@ public class Utilisateurs {
     public String Prenom;
     public String Age;
     public String Profession;
+    public static int maxKey = -1;
     public Utilisateurs() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
+    public interface CallBack {
+        void onCallback (int value);
+    }
     public Utilisateurs(String Nom, String Prenom){
         this.Nom = Nom;
         this.Prenom = Prenom;
     }
 
-    public static void addUtilisateurs(String userID, String Nom, String Prenom){
+    public static void addUtilisateurs(int userID, String Nom, String Prenom){
         mDatabase = FirebaseDatabase.getInstance("https://uhelp-68904-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         Utilisateurs utilisateur = new Utilisateurs(Nom, Prenom);
-        mDatabase.child("Utilisateurs").child(userID).setValue(utilisateur);
+        mDatabase.child("Utilisateurs").child(String.valueOf(userID)).setValue(utilisateur);
     }
 
-    public static int getBiggestUserKey(){
+    public static void readUser(String Pseudo){
+        mDatabase = FirebaseDatabase.getInstance("https://uhelp-68904-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Utilisateurs");
+        mDatabase.orderByChild("Pseudo").equalTo(Pseudo).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot childDataSnapshot : snapshot.getChildren()) {
+                    Log.d("TAG", "PARENT: "+ childDataSnapshot.getKey());
+                    Log.d("TAG",""+ childDataSnapshot.child("Pseudo").getValue());
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public static void getBiggestUserKey(CallBack callBack){
+
         mDatabase = FirebaseDatabase.getInstance("https://uhelp-68904-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         mDatabase.child("Utilisateurs").addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot childSnapshot: snapshot.getChildren()) {
@@ -51,18 +75,21 @@ public class Utilisateurs {
                     childSnapshot.child("Prenom").getValue() permet de récupérer la valeur pure
                         soit "Germain"
                      */
-                    System.out.println(childSnapshot.child("Prenom").getValue());
-                    System.out.println(key);
-            }}
+                    System.out.println("Clé : " + key);
+                    System.out.println("Max Key : " + maxKey);
+                    int Ikey = Integer.parseInt(key);
+                    if(Integer.parseInt(key) > maxKey) {
+                        maxKey = Ikey;
+                    }
+            }
+            callBack.onCallback(maxKey);
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError snapshot) {
 
             }
         });
-
-
-        return 0;
     }
 
 
