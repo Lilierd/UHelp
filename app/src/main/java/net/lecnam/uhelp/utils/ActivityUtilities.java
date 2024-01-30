@@ -4,11 +4,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup.*;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+
+import net.lecnam.uhelp.R;
+
+import org.w3c.dom.Text;
 
 /*
 *   Classe de fonctions réutilisable
 */
-public class ActivityUtilities {
+public class ActivityUtilities extends Activity {
+
     //Fonction pour ouvrir une nouvelle activité
     public static void openActivity(Context context, Class<?> targetActivity) {
         Intent intent = new Intent(context, targetActivity);

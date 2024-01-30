@@ -1,95 +1,144 @@
 package net.lecnam.uhelp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.Image;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
-import android.widget.Button;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
 import net.lecnam.uhelp.utils.ActivityUtilities;
+import net.lecnam.uhelp.utils.MenuBar;
+import net.lecnam.uhelp.utils.Popup;
+import net.lecnam.uhelp.utils.PopupButtons;
 
 public class DemandeActivity extends Activity {
 
+    private RelativeLayout fond;
     private ImageView retour;
-    private TextView demandeTexte;
-    private SensorManager sensorManager;
+    private TextView nomDemande;
     private Sensor accel;
-    private Bundle b;
-    private ImageView home;
+    private Bundle b; //Bundle de chargement de données
 
-    //Pour détection de la secousse
-    private static final int SHAKE_THRESHOLD = 800;
-    private long lastUpdate;
-    private float last_x;
-    private float last_y;
-    private float last_z;
+
+    private Popup popUp;
+    private boolean click = true;
+
+    //Barre de menu
+    private MenuBar menuBar;
+
+    //Variables d'état de l'utilisateur qui consulte la demande
+    /*
+    reponse|demandeur :
+          0|1     = demandeur
+          1|0     = repondeur
+          1|1     = erreur
+          0|0     = visionneur
+    */
+    private boolean repondeur;
+    private boolean demandeur;
+
+    //Pour détection de la secousse d'acceptation de la tâche
+    private SensorManager sensorManager;
+    private float accelVal, accelLast, shake;
+    private int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.demande);
-
         //Récupération des éléments graphiques du layout actuel
+        fond = (RelativeLayout) findViewById(R.id.fond);
         retour = (ImageView) findViewById(R.id.retourDemande);
-        demandeTexte = (TextView) findViewById(R.id.demande);
-        home = (ImageView) findViewById(R.id.home);
+        nomDemande = (TextView) findViewById(R.id.nomDemande);
 
-        //Définition du comportement des boutons
-        home.setOnClickListener(v -> ActivityUtilities.openActivity(this, AccueilActivity.class));
-        retour.setOnClickListener(v -> ActivityUtilities.openActivity(this, AccueilActivity.class));
+        //Init de la barre de menu
+        menuBar = new MenuBar(this);
+        retour.setOnClickListener(v -> { ActivityUtilities.openActivity(this, AccueilActivity.class); });
+
+        //Popup d'acceptation de la demande
+        popUp = Popup.createPopup(this, "Accepter la demande ?", "yolo", PopupButtons.OKCancel);
 
         //Gestion des capteurs
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensorManager = (SensorManager) getSystemService(this.SENSOR_SERVICE);
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        SensorEventListener accelerometerEventListener = new SensorEventListener() {
-            @Override
-            public void onSensorChanged(SensorEvent event) {
-                long curTime = System.currentTimeMillis();
-
-                if((curTime-event.timestamp) > 100)
-                {
-                    long diffTime = curTime - lastUpdate;
-                    lastUpdate = curTime;
-
-                    float x = event.values[0];
-                    float y = event.values[1];
-                    float z = event.values[2];
-
-                    float speed = Math.abs(x+y+z - last_x - last_y - last_z) / diffTime * 10000;
-
-                    if(speed > SHAKE_THRESHOLD)
-                        Log.d("sensor", "shake detected");
-
-                    last_x = x;
-                    last_y = y;
-                    last_z = z;
-                }
-
-            }
-
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-                System.out.println(sensor.getPower());
-            }
-        };
-        sensorManager.registerListener(accelerometerEventListener, accel, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(sensorListener, accel, SensorManager.SENSOR_DELAY_NORMAL);
+        accelVal = SensorManager.GRAVITY_EARTH;
+        accelLast = SensorManager.GRAVITY_EARTH;
+        shake=0.0f;
+        counter = 0;
 
         //Actualisation des données en fonction de la demande sélectionnée
+        //TODO: Remplacer par la fonction qui va récup les données dans la BDD
         b = getIntent().getExtras();
         String str = "";
         if(b != null)
             str = b.getString("demande");
-        demandeTexte.setText(str);
+        nomDemande.setText(str);
 
+    }
+
+    /*
+    Listener de détection de la secousse du téléphone.
+    Cette secousse provoquera l'acceptation de la demande affichée à l'écran
+     */
+    private final SensorEventListener sensorListener = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
+            accelLast=accelVal;
+            accelVal=(float) Math.sqrt((double) (x*x)+(y*y)+(z*z));
+            float delta= accelVal-accelLast;
+            shake =shake*0.9f+delta;
+
+            if(shake>12)
+                counter++;
+
+            if(counter>=2)  //On détecte la secousse
+            {
+                askAccept();
+                counter = 0;
+            }
+        }
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+    };
+
+    private void askAccept()
+    {
+        if(popUp == null)
+            return;
+        popUp.showAtLocation(fond, Gravity.CENTER, 0, 0);
+        popUp.update(0, 0, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        popUp.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                if(popUp.getOK())
+                {
+                    //TODO: Requête BDD pour acceptation de la demande
+                    Log.d("sensor", "omg ça secoue");
+                    Toast.makeText(getApplicationContext(), "Demande acceptée", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }
