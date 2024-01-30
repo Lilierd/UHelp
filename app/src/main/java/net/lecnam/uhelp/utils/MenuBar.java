@@ -5,6 +5,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import net.lecnam.uhelp.AccueilActivity;
+import net.lecnam.uhelp.ProfilActivity;
 import net.lecnam.uhelp.R;
 
 public class MenuBar extends Activity {
@@ -25,6 +26,6 @@ public class MenuBar extends Activity {
         carte.setOnClickListener(v -> { ActivityUtilities.openActivity(activity, AccueilActivity.class); });
         demande.setOnClickListener(v -> { ActivityUtilities.openActivity(activity, AccueilActivity.class); });
         msg.setOnClickListener(v -> { ActivityUtilities.openActivity(activity, AccueilActivity.class); });
-        profil.setOnClickListener(v -> { ActivityUtilities.openActivity(activity, AccueilActivity.class); });
+        profil.setOnClickListener(v -> { ActivityUtilities.openActivity(activity, ProfilActivity.class); });
     }
 }

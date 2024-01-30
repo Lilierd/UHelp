@@ -39,8 +39,7 @@ public class DemandeActivity extends Activity {
     private Popup popUp;
     private boolean click = true;
 
-    //Barre de menu
-    private MenuBar menuBar;
+    private MenuBar menuBar; //Barre de menu
 
     //Variables d'état de l'utilisateur qui consulte la demande
     /*
