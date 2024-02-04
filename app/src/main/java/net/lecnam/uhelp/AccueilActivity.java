@@ -54,7 +54,7 @@ public class AccueilActivity extends AppCompatActivity {
         //Génération d'exemples de demandes
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         params.setMargins(10,0,10,0);
-        for(int i = 0; i < 15; i++){
+        /*for(int i = 0; i < 15; i++){  //Initialisation de l'affichage des demandes
             TextView t = new TextView(this);
             t.setTextSize(20f);
             t.setLayoutParams(params);
@@ -67,7 +67,7 @@ public class AccueilActivity extends AppCompatActivity {
             b.putString("demande", t.getText().toString());
             t.setOnClickListener(v -> ActivityUtilities.openActivity(this, DemandeActivity.class, b));
             mesDemandes.addView(t);
-        }
+        }*/
     }
 
 }
