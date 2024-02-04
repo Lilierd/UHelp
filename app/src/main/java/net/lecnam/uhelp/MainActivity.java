@@ -73,7 +73,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     Utilisateurs.Pseudo = pseudo;
                     System.out.println(userID);
+
                 }
+
             });
             ActivityUtilities.openActivity(this, AccueilActivity.class, b);
         }

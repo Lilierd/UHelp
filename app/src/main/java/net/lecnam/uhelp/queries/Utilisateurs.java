@@ -31,8 +31,6 @@ public class Utilisateurs {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-
-
     public interface CallBack {
         void onCallback (int value);
     }
@@ -60,6 +58,7 @@ public class Utilisateurs {
         System.out.println(child);
         child.child("Pseudo").setValue(Pseudo);
     }
+
 
     // Je voulais utiliser orderBy, mais impossible de faire fonctionner la fonction.
     public static void userExists(String Pseudo, CallBack callback){
