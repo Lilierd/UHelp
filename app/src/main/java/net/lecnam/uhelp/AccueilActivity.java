@@ -39,8 +39,6 @@ import android.os.Looper;
 
 public class AccueilActivity extends AppCompatActivity {
 
-    private Button retour;
-
     private LinearLayout mesDemandes;
     private TextView hello;
     private Bundle b;
@@ -54,7 +52,6 @@ public class AccueilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.accueil);
-        retour = (Button) findViewById(R.id.retourAccueil);
         mesDemandes = (LinearLayout) findViewById(R.id.mesdemandes);
         hello = (TextView) findViewById(R.id.hello);
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import net.lecnam.uhelp.AccueilActivity;
+import net.lecnam.uhelp.NewDemandeActivity;
 import net.lecnam.uhelp.ProfilActivity;
 import net.lecnam.uhelp.R;
 
@@ -22,10 +23,10 @@ public class MenuBar extends Activity {
         ImageView profil = (ImageView) activity.findViewById(R.id.profil);
 
         //Création des click listener pour l'ouverture de chacune des activités liées
-        home.setOnClickListener(v -> { ActivityUtilities.openActivity(activity, AccueilActivity.class); });
-        carte.setOnClickListener(v -> { ActivityUtilities.openActivity(activity, AccueilActivity.class); });
-        demande.setOnClickListener(v -> { ActivityUtilities.openActivity(activity, AccueilActivity.class); });
-        msg.setOnClickListener(v -> { ActivityUtilities.openActivity(activity, AccueilActivity.class); });
-        profil.setOnClickListener(v -> { ActivityUtilities.openActivity(activity, ProfilActivity.class); });
+        home.setOnClickListener(v -> { ActivityUtilities.openActivity(activity, AccueilActivity.class); }); //Accueil
+        //carte.setOnClickListener(v -> { ActivityUtilities.openActivity(activity, AccueilActivity.class); });
+        demande.setOnClickListener(v -> { ActivityUtilities.openActivity(activity, NewDemandeActivity.class); }); //Nouvelle demande
+        //msg.setOnClickListener(v -> { ActivityUtilities.openActivity(activity, AccueilActivity.class); });
+        profil.setOnClickListener(v -> { ActivityUtilities.openActivity(activity, ProfilActivity.class); }); //Profil
     }
 }

@@ -30,7 +30,7 @@ public class ProfilActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.profil);
 
-        retour = (ImageView) findViewById(R.id.retourProfil);
+        retour = (ImageView) findViewById(R.id.retour);
         pseudo = (TextView) findViewById(R.id.pseudo);
         nom = (TextInputEditText) findViewById(R.id.nom);
         prenom = (TextInputEditText) findViewById(R.id.prenom);

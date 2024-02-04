@@ -63,7 +63,7 @@ public class DemandeActivity extends Activity {
         setContentView(R.layout.demande);
         //Récupération des éléments graphiques du layout actuel
         fond = (RelativeLayout) findViewById(R.id.fond);
-        retour = (ImageView) findViewById(R.id.retourDemande);
+        retour = (ImageView) findViewById(R.id.retour);
         nomDemande = (TextView) findViewById(R.id.nomDemande);
 
         //Init de la barre de menu
