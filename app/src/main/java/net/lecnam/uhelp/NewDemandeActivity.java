@@ -40,24 +40,32 @@ public class NewDemandeActivity extends Activity {
         retour.setOnClickListener(v -> { ActivityUtilities.openActivity(this, AccueilActivity.class); });
 
         valider.setOnClickListener(v-> {
+            String StypeDemande = typeDemande.getText().toString();
+            String SnomDemande = nomDemande.getText().toString();
 
-            Utilisateurs.getBiggestDemandKey(new Utilisateurs.CallBack() {
-                int key = 0;
-                @Override
-                public void onCallback(int value) {
-                    key = value +1;
-                    Utilisateurs.insertDemand(key, Utilisateurs.userID, nomDemande.getText().toString(), typeDemande.getText().toString());
+            if(StypeDemande.equals("") || SnomDemande.equals("")){
+                Toast.makeText(this, "Erreur : veuillez tout remplir.", Toast.LENGTH_LONG).show();
+            } else {
+                Utilisateurs.getBiggestDemandKey(new Utilisateurs.CallBack() {
+                    int key = 0;
+                    @Override
+                    public void onCallback(int value) {
+                        key = value +1;
+                        Utilisateurs.insertDemand(key, Utilisateurs.userID, nomDemande.getText().toString(), typeDemande.getText().toString());
+                    }
+                });
+                //TODO (Last)
+                boolean src = true; // = méthode bdd
+                if(src) {
+                    Toast.makeText(this, "Demande créée", Toast.LENGTH_LONG).show();
+                    Bundle b = new Bundle();
+                    ActivityUtilities.openActivity(this, AccueilActivity.class, b);
                 }
-            });
-            //TODO (Last)
-            boolean src = true; // = méthode bdd
-            if(src) {
-                Toast.makeText(this, "Demande créée", Toast.LENGTH_LONG).show();
-                Bundle b = new Bundle();
-                ActivityUtilities.openActivity(this, AccueilActivity.class, b);
+                else
+                    Toast.makeText(this, "Erreur : veuillez réessayer", Toast.LENGTH_LONG).show();
             }
-            else
-                Toast.makeText(this, "Erreur : veuillez réessayer", Toast.LENGTH_LONG).show();
+
+
         });
     }
 }

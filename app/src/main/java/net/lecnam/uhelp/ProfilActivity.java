@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -57,5 +58,6 @@ public class ProfilActivity extends Activity {
         pseudo.setText(Utilisateurs.Pseudo);
         nom.setText(Utilisateurs.Nom);
         prenom.setText(Utilisateurs.Prenom);
+        Toast.makeText(this, "Données enregistrées.", Toast.LENGTH_LONG).show();
     }
 }

@@ -79,11 +79,7 @@ public class AccueilActivity extends AppCompatActivity {
                     public void run() {
                         for (DataSnapshot demande : snapshot.getChildren()){
                             String s = demande.child("Demandeur").getValue().toString();
-                            System.out.println("Mon ID : "+ Utilisateurs.userID);
-                            System.out.println("ID Mission "+ s);
                             if(Utilisateurs.userID == Integer.parseInt(s)){
-                                System.out.println("Mon ID : "+ Utilisateurs.userID);
-                                System.out.println("ID Mission "+ s);
                                 TextView t = new TextView(AccueilActivity.this);
                                 t.setTextSize(20f);
                                 t.setLayoutParams(params);
