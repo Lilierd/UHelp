@@ -26,8 +26,6 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class AccueilActivity extends AppCompatActivity {
 
-    private Button retour;
-
     private LinearLayout mesDemandes;
     private TextView hello;
     private Bundle b;
@@ -39,7 +37,6 @@ public class AccueilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.accueil);
-        retour = (Button) findViewById(R.id.retourAccueil);
         mesDemandes = (LinearLayout) findViewById(R.id.mesdemandes);
         hello = (TextView) findViewById(R.id.hello);
 
@@ -71,8 +68,6 @@ public class AccueilActivity extends AppCompatActivity {
             t.setOnClickListener(v -> ActivityUtilities.openActivity(this, DemandeActivity.class, b));
             mesDemandes.addView(t);
         }
-
-        retour.setOnClickListener(v -> ActivityUtilities.openActivity(this, MainActivity.class));
     }
 
 }

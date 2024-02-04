@@ -23,7 +23,7 @@
                 android:src="@drawable/retour"
                 android:layout_gravity="start"
                 android:layout_weight="0"
-                android:id="@+id/retourDemande"
+                android:id="@+id/retour"
                 android:padding="20dp"/>
 
             <TextView
@@ -33,13 +33,11 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:fontFamily="@font/montserrat_bold"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textAlignment="center"
-                android:paddingTop="12dp"
                 android:text="Demande x"
                 android:textColor="@color/white"
-                android:textSize="30sp" />
+                android:textSize="25sp" />
         </LinearLayout>
         <ScrollView
             android:layout_width="match_parent"
