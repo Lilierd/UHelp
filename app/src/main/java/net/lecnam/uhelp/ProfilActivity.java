@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import net.lecnam.uhelp.queries.Utilisateurs;
 import net.lecnam.uhelp.utils.ActivityUtilities;
 import net.lecnam.uhelp.utils.MenuBar;
 
@@ -45,12 +46,16 @@ public class ProfilActivity extends Activity {
             if(nom.getText().toString() == "" || prenom.getText().toString() == "")
                 return;
 
-            //TODO: réécriture sur la BDD
+            Utilisateurs.getUserKey(Utilisateurs.Pseudo, new Utilisateurs.CallBack() {
+                @Override
+                public void onCallback(int value) {
+                    Utilisateurs.EditUser(value,nom.getText().toString(), prenom.getText().toString());
+                }
+            });
         });
 
-        //TODO: récupe le pseudo, le nom et le prénom (si nom et prénom déjà set dans la bdd)
-        //pseudo.setText();
-        //nom.setText();
-        //prenom.setText();
+        pseudo.setText(Utilisateurs.Pseudo);
+        nom.setText(Utilisateurs.Nom);
+        prenom.setText(Utilisateurs.Prenom);
     }
 }
