@@ -88,7 +88,7 @@ public class AccueilActivity extends AppCompatActivity {
                                 t.setTextSize(20f);
                                 t.setLayoutParams(params);
                                 t.setBackgroundResource(R.drawable.contour);
-                                t.setText(demande.child("Libellé").getValue().toString());
+                                t.setText(demande.child("Nom").getValue().toString());
                                 t.setTextColor(Color.WHITE);
                                 t.setId(Integer.parseInt(demande.getKey()));
                                 t.setPadding(10,10,10,30);
@@ -107,7 +107,7 @@ public class AccueilActivity extends AppCompatActivity {
 
             }
         });
-    /*
+        /*
         for(int i = 0; i < 15; i++){
             System.out.println(this);
             TextView t = new TextView(this);
@@ -124,6 +124,6 @@ public class AccueilActivity extends AppCompatActivity {
             mesDemandes.addView(t);
         }*/
 
-        retour.setOnClickListener(v -> ActivityUtilities.openActivity(this, MainActivity.class));
+        //retour.setOnClickListener(v -> ActivityUtilities.openActivity(this, MainActivity.class));
     }}
 

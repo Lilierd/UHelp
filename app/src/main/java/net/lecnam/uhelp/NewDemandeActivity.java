@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import net.lecnam.uhelp.queries.Utilisateurs;
 import net.lecnam.uhelp.utils.ActivityUtilities;
 import net.lecnam.uhelp.utils.MenuBar;
 
@@ -39,10 +40,22 @@ public class NewDemandeActivity extends Activity {
         retour.setOnClickListener(v -> { ActivityUtilities.openActivity(this, AccueilActivity.class); });
 
         valider.setOnClickListener(v-> {
-            //TODO: appel à la méthode d'insertion dans la BDD (mettre un bool de retour qui valide l'insertion dans la BDD)
-            boolean src = false; // = méthode bdd
-            if(src)
+
+            Utilisateurs.getBiggestDemandKey(new Utilisateurs.CallBack() {
+                int key = 0;
+                @Override
+                public void onCallback(int value) {
+                    key = value +1;
+                    Utilisateurs.insertDemand(key, Utilisateurs.userID, nomDemande.getText().toString(), typeDemande.getText().toString());
+                }
+            });
+            //TODO (Last)
+            boolean src = true; // = méthode bdd
+            if(src) {
                 Toast.makeText(this, "Demande créée", Toast.LENGTH_LONG).show();
+                Bundle b = new Bundle();
+                ActivityUtilities.openActivity(this, AccueilActivity.class, b);
+            }
             else
                 Toast.makeText(this, "Erreur : veuillez réessayer", Toast.LENGTH_LONG).show();
         });

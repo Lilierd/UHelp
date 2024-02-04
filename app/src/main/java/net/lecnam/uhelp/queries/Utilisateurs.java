@@ -118,20 +118,23 @@ public class Utilisateurs {
     }
 
     public static void getUserKey(String pseudo, CallBack callBack){
-        mDatabase = FirebaseDatabase.getInstance("https://uhelp-68904-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Utilisateurs");
-        mDatabase.orderByChild("Pseudo").equalTo(Pseudo).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase = FirebaseDatabase.getInstance("https://uhelp-68904-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
 
-
+        mDatabase.child("Utilisateurs").addListenerForSingleValueEvent(new ValueEventListener() {
+            int key = 0;
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int key = 0;
-                for (DataSnapshot childSnapshot: snapshot.getChildren()) {
-                   key = Integer.parseInt(childSnapshot.getKey());
-                   System.out.println("getUserKey : Key : "+userID);
-                   userID = key;
-                   System.out.println("getUserKey : Key : "+userID);
-            }
-            callBack.onCallback(key);
+                for(DataSnapshot child : snapshot.getChildren()){
+                    if(child.child("Pseudo").getValue().toString().equals(pseudo)){
+                        String Skey = child.getKey();
+                        try {
+                            key = Integer.parseInt(Skey);
+                        }catch (NumberFormatException e){
+                        }
+                        break;
+                    }
+                }
+                callBack.onCallback(key);
             }
 
             @Override
@@ -140,6 +143,47 @@ public class Utilisateurs {
             }
         });
 }
+
+        public static void insertDemand(int id, int Demandeur, String nom, String type){
+            mDatabase = FirebaseDatabase.getInstance("https://uhelp-68904-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
+            DatabaseReference child = mDatabase.child("Demandes").child(String.valueOf(id));
+            child.child("Demandeur").setValue(Demandeur);
+            child.child("Nom").setValue(nom);
+            child.child("Type").setValue(type);
+        }
+
+    public static void getBiggestDemandKey(CallBack callBack){
+        mDatabase = FirebaseDatabase.getInstance("https://uhelp-68904-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
+        mDatabase.child("Demandes").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                    String key = childSnapshot.getKey();
+                    /*
+                    childSnapshot contient l'objet complet {Nom:"", Prenom:""}
+                    childSnapshot.getKey() permet de récupérer la clé (1)
+                    childSnapshot.child("Prenom") permet de récupérer l'objet JSON du fils "prenom"
+                        soit {Prenom:""}
+                    childSnapshot.child("Prenom").getValue() permet de récupérer la valeur pure
+                        soit "Germain"
+                     */
+                    System.out.println("Clé demande : " + key);
+                    System.out.println("Max Key demande: " + maxKey);
+                    int Ikey = Integer.parseInt(key);
+                    if(Integer.parseInt(key) > maxKey) {
+                        maxKey = Ikey;
+                    }
+
+                }
+                callBack.onCallback(maxKey);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError snapshot) {
+
+            }
+        });
+    }
 
 
 }

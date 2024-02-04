@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             userExists(pseudo, new Utilisateurs.CallBack() {
                 @Override
                 public void onCallback(int value) {
-                    System.out.println("Debut onCallBack userExists");
+                    System.out.println("Debut onCallBack userExists" + value);
                     if(value == 0){
                         System.out.println("UserExistePas");
 
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                         getUserKey(pseudo, new Utilisateurs.CallBack() {
                             @Override
                             public void onCallback(int value) {
+                                System.out.println("GetUserKey : "+ value);
                                 userID = value;
                             }
                         });
