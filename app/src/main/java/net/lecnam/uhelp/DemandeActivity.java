@@ -110,7 +110,7 @@ public class DemandeActivity extends Activity {
             if(shake>12)
                 counter++;
 
-            if(counter>=2)  //On détecte la secousse
+            if(counter>=1)  //On détecte la secousse
             {
                 askAccept();
                 counter = 0;
