@@ -1,28 +1,28 @@
 package net.lecnam.uhelp;
 
+import static net.lecnam.uhelp.queries.Utilisateurs.addUtilisateurs;
+import static net.lecnam.uhelp.queries.Utilisateurs.getBiggestUserKey;
+import static net.lecnam.uhelp.queries.Utilisateurs.getUserKey;
+import static net.lecnam.uhelp.queries.Utilisateurs.userExists;
+import static net.lecnam.uhelp.queries.Utilisateurs.userID;
+
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
-
-import androidx.core.view.WindowCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import net.lecnam.uhelp.databinding.ActivityMainBinding;
 
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
+import android.widget.Button;
+import com.google.android.material.textfield.TextInputEditText;
+import net.lecnam.uhelp.utils.ActivityUtilities;
+import net.lecnam.uhelp.queries.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+
+    private Button confirm;
+    private TextInputEditText pseudo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,48 +31,58 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.toolbar);
+        confirm = (Button)findViewById(R.id.confirm);
+        pseudo = (TextInputEditText) findViewById(R.id.pseudo);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        confirm.setOnClickListener(v -> openAccueil(pseudo.getText().toString()));
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAnchorView(R.id.fab)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+    public void openAccueil(String pseudo){
+        if(!pseudo.isEmpty())
+        {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+            confirm.setBackgroundColor((255) << 24 | (10) << 16 | (175) << 8 | (10));
+            Bundle b = new Bundle();
+            b.putString("pseudo", pseudo);
+            System.out.println("Debut openAccueil");
+            userExists(pseudo, new Utilisateurs.CallBack() {
+                @Override
+                public void onCallback(int value) {
+                    System.out.println("Debut onCallBack userExists" + value);
+                    if(value == 0){
+                        System.out.println("UserExistePas");
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+                        getBiggestUserKey(new Utilisateurs.CallBack() {
+                            @Override
+                            public void onCallback(int nextKey) {
+                                addUtilisateurs(nextKey+1,pseudo);
+                                System.out.println("INSERT PSEUDO");
+                                Utilisateurs.userID = nextKey+1;
+                                System.out.println(userID);
+                            }
+                        });
+                    } else {
+                        System.out.println("UserExiste");
+                        getUserKey(pseudo, new Utilisateurs.CallBack() {
+                            @Override
+                            public void onCallback(int value) {
+                                System.out.println("GetUserKey : "+ value);
+                                userID = value;
+                            }
+                        });
+                    }
+                    Utilisateurs.Pseudo = pseudo;
+                    System.out.println(userID);
+
+                }
+
+            });
+            ActivityUtilities.openActivity(this, AccueilActivity.class, b);
         }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
+        else
+        {
+            confirm.setBackgroundColor((255) << 24 | (255) << 16 | (10) << 8 | (60));
+        }
     }
 }

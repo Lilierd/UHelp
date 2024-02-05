@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fond"
+    android:fitsSystemWindows="true"
+    tools:context=".AccueilActivity">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <!--Bienvenue et recherche-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="30dp">
+                <TextView
+                    android:id="@+id/hello"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="25dp"
+                    android:text="Hello pseudo !"
+                    style="@style/TextViewUHelpTitle"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="De quoi avez-vous besoin aujourd'hui ?"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/search"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:background="@color/uhelp"
+                        android:textSize="16sp"
+                        android:inputType="textPersonName"
+                        android:padding="20dp"
+                        android:textColor="@color/white" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="35dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <!--Demandes du jour-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="15dp"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/TextViewUHelpTitle"
+                            android:text="Demandes du jour"
+                            android:textSize="20sp"/>
+
+                        <GridLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:columnCount="2">
+                            <GridLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:paddingVertical="15dp"
+                                android:columnCount="1"
+                                >
+                                <LinearLayout
+                                    android:layout_height="75dp"
+                                    android:background="@drawable/carre"/>
+                                <LinearLayout
+                                    android:layout_height="75dp"
+                                    android:background="@drawable/carre"/>
+                            </GridLayout>
+
+                            <GridLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingVertical="15dp"
+                                android:columnCount="1">
+                                <LinearLayout
+                                    android:layout_height="75dp"
+                                    android:background="@drawable/carre"/>
+                                <LinearLayout
+                                    android:layout_height="75dp"
+                                    android:background="@drawable/carre"/>
+                            </GridLayout>
+                        </GridLayout>
+
+                    </LinearLayout>
+
+                    <!--Mes demandes-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginHorizontal="25dp"
+                        android:layout_marginVertical="10dp">
+
+                        <TextView
+                            style="@style/TextViewUHelpTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Mes demandes"
+                            android:textSize="20sp"
+                            android:paddingBottom="10dp"/>
+                            <!--Liste des demandes-->
+                            <LinearLayout
+                                android:id="@+id/mesdemandes"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/carre"
+                                android:orientation="vertical">
+
+                            </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        <!--Barre de menu-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+            <include
+                layout="@layout/menu_bar"/>
+        </LinearLayout>
+</RelativeLayout>
