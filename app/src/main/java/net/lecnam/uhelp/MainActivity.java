@@ -27,13 +27,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         confirm = (Button)findViewById(R.id.confirm);
         pseudo = (TextInputEditText) findViewById(R.id.pseudo);
-
         confirm.setOnClickListener(v -> openAccueil(pseudo.getText().toString()));
 
     }
@@ -41,42 +38,30 @@ public class MainActivity extends AppCompatActivity {
     public void openAccueil(String pseudo){
         if(!pseudo.isEmpty())
         {
-
             confirm.setBackgroundColor((255) << 24 | (10) << 16 | (175) << 8 | (10));
             Bundle b = new Bundle();
             b.putString("pseudo", pseudo);
-            System.out.println("Debut openAccueil");
             userExists(pseudo, new Utilisateurs.CallBack() {
                 @Override
                 public void onCallback(int value) {
-                    System.out.println("Debut onCallBack userExists" + value);
                     if(value == 0){
-                        System.out.println("UserExistePas");
-
                         getBiggestUserKey(new Utilisateurs.CallBack() {
                             @Override
                             public void onCallback(int nextKey) {
                                 addUtilisateurs(nextKey+1,pseudo);
-                                System.out.println("INSERT PSEUDO");
                                 Utilisateurs.userID = nextKey+1;
-                                System.out.println(userID);
                             }
                         });
                     } else {
-                        System.out.println("UserExiste");
                         getUserKey(pseudo, new Utilisateurs.CallBack() {
                             @Override
                             public void onCallback(int value) {
-                                System.out.println("GetUserKey : "+ value);
                                 userID = value;
                             }
                         });
                     }
                     Utilisateurs.Pseudo = pseudo;
-                    System.out.println(userID);
-
                 }
-
             });
             ActivityUtilities.openActivity(this, AccueilActivity.class, b);
         }

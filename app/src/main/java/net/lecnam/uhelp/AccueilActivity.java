@@ -70,6 +70,7 @@ public class AccueilActivity extends AppCompatActivity {
         params.setMargins(10,0,10,0);
 
 
+        // Affichage de la liste des demandes d'un utilisateur
         DatabaseReference mDatabase = FirebaseDatabase.getInstance("https://uhelp-68904-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         mDatabase.child("Demandes").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -96,30 +97,10 @@ public class AccueilActivity extends AppCompatActivity {
                         }
                     }
                 });
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-        /*
-        for(int i = 0; i < 15; i++){
-            System.out.println(this);
-            TextView t = new TextView(this);
-            t.setTextSize(20f);
-            t.setLayoutParams(params);
-            t.setBackgroundResource(R.drawable.contour);
-            t.setText("patate"+i);
-            t.setTextColor(Color.WHITE);
-            t.setId(i);
-            t.setPadding(10,10,10,30);
-            Bundle b = new Bundle();
-            b.putString("demande", t.getText().toString());
-            t.setOnClickListener(v -> ActivityUtilities.openActivity(this, DemandeActivity.class, b));
-            mesDemandes.addView(t);
-        }*/
-
-        //retour.setOnClickListener(v -> ActivityUtilities.openActivity(this, MainActivity.class));
     }}
 

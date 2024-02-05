@@ -83,7 +83,6 @@ public class DemandeActivity extends Activity {
         counter = 0;
 
         //Actualisation des données en fonction de la demande sélectionnée
-        //TODO: Remplacer par la fonction qui va récup les données dans la BDD
         b = getIntent().getExtras();
         String str = "";
         if(b != null)
@@ -127,17 +126,12 @@ public class DemandeActivity extends Activity {
             return;
         popUp.showAtLocation(fond, Gravity.CENTER, 0, 0);
         popUp.update(0, 0, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
         popUp.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
                 if(popUp.getOK())
-                {
-                    //TODO: Requête BDD pour acceptation de la demande
-                    Log.d("sensor", "omg ça secoue");
                     Toast.makeText(getApplicationContext(), "Demande acceptée", Toast.LENGTH_LONG).show();
                 }
-            }
-        });
+            });
     }
 }

@@ -54,7 +54,6 @@ public class NewDemandeActivity extends Activity {
                         Utilisateurs.insertDemand(key, Utilisateurs.userID, nomDemande.getText().toString(), typeDemande.getText().toString());
                     }
                 });
-                //TODO (Last)
                 boolean src = true; // = méthode bdd
                 if(src) {
                     Toast.makeText(this, "Demande créée", Toast.LENGTH_LONG).show();
