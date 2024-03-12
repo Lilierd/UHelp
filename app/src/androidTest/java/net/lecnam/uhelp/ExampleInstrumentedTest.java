@@ -23,4 +23,9 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("net.lecnam.uhelp", appContext.getPackageName());
     }
+
+    @Test
+    public void firstTest() {
+        assertTrue("patate",true);
+    }
 }

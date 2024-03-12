@@ -19,6 +19,9 @@
             android:name=".DemandeActivity"
             android:exported="false" />
         <activity
+            android:name=".ListeDemandesActivity"
+            android:exported="false" />
+        <activity
             android:name=".NewDemandeActivity"
             android:exported="false" />
         <activity

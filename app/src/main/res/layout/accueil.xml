@@ -65,48 +65,17 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
                         android:paddingLeft="25dp"
                         android:paddingRight="25dp">
 
                         <TextView
+                            android:id="@+id/acces_liste"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             style="@style/TextViewUHelpTitle"
-                            android:text="Demandes du jour"
+                            android:text="Demandes disponibles >"
                             android:textSize="20sp"/>
-
-                        <GridLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:columnCount="2">
-                            <GridLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="15dp"
-                                android:paddingVertical="15dp"
-                                android:columnCount="1"
-                                >
-                                <LinearLayout
-                                    android:layout_height="75dp"
-                                    android:background="@drawable/carre"/>
-                                <LinearLayout
-                                    android:layout_height="75dp"
-                                    android:background="@drawable/carre"/>
-                            </GridLayout>
-
-                            <GridLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingVertical="15dp"
-                                android:columnCount="1">
-                                <LinearLayout
-                                    android:layout_height="75dp"
-                                    android:background="@drawable/carre"/>
-                                <LinearLayout
-                                    android:layout_height="75dp"
-                                    android:background="@drawable/carre"/>
-                            </GridLayout>
-                        </GridLayout>
 
                     </LinearLayout>
 
