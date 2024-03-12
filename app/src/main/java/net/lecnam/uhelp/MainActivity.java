@@ -1,7 +1,7 @@
 package net.lecnam.uhelp;
 
 import static net.lecnam.uhelp.queries.Utilisateurs.addUtilisateurs;
-import static net.lecnam.uhelp.queries.Utilisateurs.getBiggestUserKey;
+import static net.lecnam.uhelp.queries.Utilisateurs.getBiggestKey;
 import static net.lecnam.uhelp.queries.Utilisateurs.getUserKey;
 import static net.lecnam.uhelp.queries.Utilisateurs.userExists;
 import static net.lecnam.uhelp.queries.Utilisateurs.userID;
@@ -45,13 +45,13 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onCallback(int value) {
                     if(value == 0){
-                        getBiggestUserKey(new Utilisateurs.CallBack() {
+                        getBiggestKey(new Utilisateurs.CallBack() {
                             @Override
                             public void onCallback(int nextKey) {
                                 addUtilisateurs(nextKey+1,pseudo);
                                 Utilisateurs.userID = nextKey+1;
                             }
-                        });
+                        }, "Utilisateurs");
                     } else {
                         getUserKey(pseudo, new Utilisateurs.CallBack() {
                             @Override
@@ -60,10 +60,11 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     }
-                    Utilisateurs.Pseudo = pseudo;
+                    Utilisateurs.Pseudo = pseudo.trim();
+                    ActivityUtilities.openActivity(MainActivity.this, AccueilActivity.class, b);
                 }
             });
-            ActivityUtilities.openActivity(this, AccueilActivity.class, b);
+
         }
         else
         {

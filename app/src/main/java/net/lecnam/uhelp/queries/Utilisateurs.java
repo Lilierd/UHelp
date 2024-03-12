@@ -86,25 +86,7 @@ public class Utilisateurs {
         });
     }
 
-    public static void getBiggestUserKey(CallBack callBack) {
-        mDatabase = FirebaseDatabase.getInstance("https://uhelp-68904-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
-        mDatabase.child("Utilisateurs").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                    String key = childSnapshot.getKey();
-                    int Ikey = Integer.parseInt(key);
-                    if (Integer.parseInt(key) > maxKey) {
-                        maxKey = Ikey;
-                    }
-                }
-                callBack.onCallback(maxKey);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError snapshot) {
-            }
-        });
-    }
+
 
     // Récupération de la clé d'un utilisateur
     public static void getUserKey(String pseudo, CallBack callBack) {
@@ -141,10 +123,11 @@ public class Utilisateurs {
         child.child("Type").setValue(type);
     }
 
-    // récupère la plus grande clé des demandes afin d'en ajouter une autre
-    public static void getBiggestDemandKey(CallBack callBack) {
+
+
+    public static void getBiggestKey(CallBack callBack, String child) {
         mDatabase = FirebaseDatabase.getInstance("https://uhelp-68904-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
-        mDatabase.child("Demandes").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child(child).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot childSnapshot : snapshot.getChildren()) {
@@ -153,11 +136,9 @@ public class Utilisateurs {
                     if (Integer.parseInt(key) > maxKey) {
                         maxKey = Ikey;
                     }
-
                 }
                 callBack.onCallback(maxKey);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError snapshot) {
             }

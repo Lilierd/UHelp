@@ -46,14 +46,14 @@ public class NewDemandeActivity extends Activity {
             if(StypeDemande.equals("") || SnomDemande.equals("")){
                 Toast.makeText(this, "Erreur : veuillez tout remplir.", Toast.LENGTH_LONG).show();
             } else {
-                Utilisateurs.getBiggestDemandKey(new Utilisateurs.CallBack() {
+                Utilisateurs.getBiggestKey(new Utilisateurs.CallBack() {
                     int key = 0;
                     @Override
                     public void onCallback(int value) {
                         key = value +1;
                         Utilisateurs.insertDemand(key, Utilisateurs.userID, nomDemande.getText().toString(), typeDemande.getText().toString());
                     }
-                });
+                }, "Demandes");
                 boolean src = true; // = méthode bdd
                 if(src) {
                     Toast.makeText(this, "Demande créée", Toast.LENGTH_LONG).show();
